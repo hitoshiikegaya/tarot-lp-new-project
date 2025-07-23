@@ -239,9 +239,11 @@ const TarotShuffleUI = () => {
       {/* 誘導メッセージとLINEボタン (重複しますが、あえてもう一度置いてLPのCTAを強化しています) */}
       <div className="mt-20 pb-20 text-center max-w-2xl">
         <div className="flex justify-center">
-         <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 text-wrap">
-  あなたの未来を占ってみませんか？
-</h2>
+         <div className="flex justify-center"> {/* 親のdivにflex justify-centerがあることを確認 */}
+  <h2 className="text-2xl md:text-4xl font-bold text-white mb-6"> {/* whitespace-nowrapは削除 */}
+    あなたの未来を占ってみませんか？
+  </h2>
+</div>
         </div> {/* <-- この閉じタグが抜けていました！ */}
         <p className="text-white text-xl mb-6 mt-6">
           タロットはあくまで今日のエネルギー傾向を示すヒントです。
