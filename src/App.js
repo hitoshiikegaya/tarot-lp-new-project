@@ -146,7 +146,7 @@ const TarotShuffleUI = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex flex-col items-center justify-center p-8">
       {/* 🔮 今日の運勢を占うセクション */}
-      <div className="text-center mt-8 mb-8"> 
+      <div className="text-center mt-8 mb-8">
         <h1 className="text-4xl font-bold text-white mb-4 flex items-center justify-center gap-2">
           <Sparkles className="text-yellow-300" />
           今日の運勢を占う
@@ -239,9 +239,9 @@ const TarotShuffleUI = () => {
       {/* 誘導メッセージとLINEボタン (重複しますが、あえてもう一度置いてLPのCTAを強化しています) */}
       <div className="mt-20 pb-20 text-center max-w-2xl">
         <div className="flex justify-center">
-         <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 whitespace-nowrap">
-          あなたの未来を占ってみませんか？
-        </h2>
+         <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 text-wrap">
+  あなたの未来を占ってみませんか？
+</h2>
         </div> {/* <-- この閉じタグが抜けていました！ */}
         <p className="text-white text-xl mb-6 mt-6">
           タロットはあくまで今日のエネルギー傾向を示すヒントです。
@@ -249,14 +249,18 @@ const TarotShuffleUI = () => {
           本当に悩んでいることがある方は、【個別鑑定書】で<br />
           「原因の本質」や「今すぐ取るべき具体的な行動」をお伝えしています。
         </p>
-        <a
-          href="https://lin.ee/YqR4tbD" // ここもあなたのLINE公式アカウントのURLに置き換えてください
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block mt-6 px-10 py-4 rounded-full font-bold text-lg bg-green-500 text-white shadow-lg hover:bg-green-400 transition-all duration-300"
-        >
-          <span role="img" aria-label="line-icon">▶︎</span> LINEに戻って【個別鑑定書】を依頼する
-        </a>
+        <div className="flex justify-center mt-6"> {/* mt-6 はボタンのクラスからこちらに移動 */}
+  <a
+    href="https://lin.ee/YqR4tbD"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-full max-w-md px-10 py-4 rounded-full font-bold text-lg bg-green-500 text-white shadow-lg hover:bg-green-400 transition-all duration-300 text-center"
+    // w-full で親要素の幅いっぱいに広げ、max-w-md で最大幅を制限
+    // text-center を追加して、ボタン内のテキストを中央揃えにする
+  >
+    <span role="img" aria-label="line-icon">▶︎</span> LINEに戻って【個別鑑定書】を依頼する
+  </a>
+</div>
       </div>
 
       <style>{`
