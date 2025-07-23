@@ -203,14 +203,16 @@ const TarotShuffleUI = () => {
 
         {selectedCard && (
           <div className="absolute inset-0 flex flex-col items-center justify-center animate-fade-in-slow">
-            <div className="w-40 h-56 bg-gradient-to-br from-purple-700 to-indigo-700 rounded-xl border-4 border-yellow-300 shadow-2xl flex items-center justify-center text-center text-lg font-bold text-yellow-200 transition-opacity duration-1000 opacity-0 animate-fade-in-slow overflow-hidden">
+            {/* ここから修正 */}
+            <div className="card-display-area bg-gradient-to-br from-purple-700 to-indigo-700 rounded-xl border-4 border-yellow-300 shadow-2xl flex items-center justify-center text-center text-lg font-bold text-yellow-200 transition-opacity duration-1000 opacity-0 animate-fade-in-slow overflow-hidden">
               {/* 選択されたカードのみ画像を表示 */}
               <img
                 src={selectedCard.image} // 選択されたカードの画像パス
                 alt={selectedCard.name}
-                className="w-full h-full object-cover" // 画像がカード枠に収まるように
+                className="selected-card-image" // 新しいクラス名に変更
               />
             </div>
+            {/* ここまで修正 */}
             <p className="text-purple-100 text-base mt-16 max-w-xs animate-fade-in-slow">
               {fortuneMessage}
             </p>
@@ -304,6 +306,27 @@ const TarotShuffleUI = () => {
         .animate-fade-in-slow {
           animation: fadeInSlow 1.5s ease-out forwards;
         }
+
+        /* --- ここから追加・修正 --- */
+        .card-display-area {
+          /* w-40 h-56 (160px x 224px) だった部分を調整 */
+          /* 実際のタロットカードの一般的な縦横比に近いサイズを指定 */
+          /* 例: 幅150px、高さ250px (アスペクト比 1:1.66) */
+          /* お手持ちの画像の実際のサイズに合わせて調整してください */
+          width: 150px; 
+          height: 250px; 
+          /* Tailwindのw-40 h-56 は 160px x 224px (1rem = 16pxなので 16*10=160, 16*14=224) */
+          /* 必要であればこのpx値を調整してください */
+        }
+
+        .selected-card-image {
+          width: 100%; /* 親要素の幅いっぱいに広げる */
+          height: 100%; /* 親要素の高さいっぱいに広げる */
+          object-fit: contain; /* アスペクト比を保ちつつ、親要素の枠内に収める */
+          /* object-fit: cover; だと画像がはみ出して切れてしまう */
+          /* object-fit: fill; だと画像が歪む */
+        }
+        /* --- ここまで追加・修正 --- */
       `}</style>
     </div>
   );
