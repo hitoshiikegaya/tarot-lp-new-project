@@ -239,7 +239,7 @@ const TarotShuffleUI = () => {
       {/* 誘導メッセージとLINEボタン (重複しますが、あえてもう一度置いてLPのCTAを強化しています) */}
       <div className="mt-20 pb-20 text-center max-w-2xl mx-auto px-4 sm:px-6 lg:px-8"> {/* max-w-2xlと中央寄せ、左右の余白を追加 */}
         <div className="flex justify-center"> {/* h2を中央寄せするためのflexコンテナ */}
-          <h2 className="font-bold text-white mb-6
+          <h2 className="font-bold text-white mb-6 whitespace-nowrap
              text-xl           /* デフォルト（スマホ）のフォントサイズ */
              sm:text-2xl       /* smブレークポイント以上でのフォントサイズ */
              md:text-3xl       /* mdブレークポイント以上でのフォントサイズ */
