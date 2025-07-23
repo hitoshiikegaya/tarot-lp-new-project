@@ -256,7 +256,7 @@ const TarotShuffleUI = () => {
           本当に悩んでいることがある方は、【個別鑑定書】で<br />
           「原因の本質」や「今すぐ取るべき具体的な行動」をお伝えしています。
         </p>
-        <div className="flex justify-center mt-6"> {/* mt-6 はボタンのクラスからこちらに移動 */}
+        <div className="flex justify-center mt-10"> {/* mt-6 はボタンのクラスからこちらに移動 */}
           <a
             href="https://lin.ee/YqR4tbD"
             target="_blank"
