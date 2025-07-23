@@ -88,14 +88,14 @@ const TarotShuffleUI = () => {
           { name: "Y様", stars: "★★★★★", category: "仕事・キャリア", text: "一人で悩むしかなかったことが、誰かに理解されたことで心が救われました。", gender: "女性", age: "43歳", date: "2025年5月" },
           { name: "R様", stars: "★★★★★", category: "人間関係", text: "思考の癖を見抜いてもらい、新しい考え方に挑戦できるようになりました。", gender: "男性", age: "30歳", date: "2025年5月" },
           { name: "W様", stars: "★★★★★", category: "金運・財運", text: "人生の選択に自信が持てるようになり、勇気ある決断ができました。", gender: "女性", age: "39歳", date: "2025年5月" },
-          { name: "C様", stars: "★★★★★", category: "人生の方向性", text: "愛されない理由を外側に求めていたことに気づき、自分を愛せるようになれました。", gender: "女性", age: "36歳", date: "2025年5月" },
+          { name: "C様", stars: "★★★★★", "category": "人生の方向性", text: "愛されない理由を外側に求めていたことに気づき、自分を愛せるようになれました。", gender: "女性", age: "36歳", date: "2025年5月" },
           { name: "E様", stars: "★★★★★", category: "恋愛・結婚", text: "心のどこかで感じていた違和感を丁寧に拾っていただき、とても腑に落ちました。", gender: "女性", age: "42歳", date: "2025年5月" },
           { name: "G様", stars: "★★★★★", category: "仕事・キャリア", text: "言葉にできなかった苦しみを代弁してもらえて、涙が止まりませんでした。", gender: "女性", age: "29歳", date: "2025年5月" },
           { name: "J様", stars: "★★★★★", category: "人間関係", text: "不安を見つめることから始める勇気をもらいました。感謝しています。", gender: "男性", age: "45歳", date: "2025年5月" },
           { name: "A様", stars: "★★★★★", category: "金運・財運", text: "繰り返していた失敗の根本原因がわかり、次こそは変われる気がしています。", gender: "女性", age: "31歳", date: "2025年5月" },
           { name: "K様", "stars": "★★★★★", category: "人生の方向性", text: "決断のタイミングを見極めるヒントをいただき、迷いが晴れました。", gender: "女性", age: "40歳", date: "2025年5月" },
           { name: "S様", stars: "★★★★★", category: "恋愛・結婚", text: "未来への不安を希望に変えるような、温かな言葉をいただきました。", gender: "女性", age: "33歳", date: "2025年5月" },
-          { name: "T様", stars: "★★★★★", category: "仕事・キャリア", text: "否定的な思考に飲まれていた日々から抜け出すきっかけをいただきました。", gender: "男性", age: "27歳", date: "2025年5月" },
+           { name: "T様", stars: "★★★★★", category: "仕事・キャリア", text: "否定的な思考に飲まれていた日々から抜け出すきっかけをいただきました。", gender: "男性", age: "27歳", date: "2025年5月" },
           { name: "N様", stars: "★★★★★", category: "人間関係", text: "執着していたものを手放す大切さに気づき、心の余裕が生まれました。", gender: "女性", age: "38歳", date: "2025年5月" },
           { name: "H様", stars: "★★★★★", category: "金運・財運", text: "忘れていた夢を思い出すきっかけとなる鑑定でした。ありがとうございました。", gender: "女性", age: "32歳", date: "2025年5月" },
           { name: "M様", stars: "★★★★★", category: "人生の方向性", text: "自分では気づけなかった本音を知り、大切な気づきに繋がりました。", gender: "女性", age: "44歳", date: "2025年5月" },
@@ -237,14 +237,19 @@ const TarotShuffleUI = () => {
       </div>
 
       {/* 誘導メッセージとLINEボタン (重複しますが、あえてもう一度置いてLPのCTAを強化しています) */}
-      <div className="mt-20 pb-20 text-center max-w-2xl">
-        <div className="flex justify-center">
-         <div className="flex justify-center"> {/* 親のdivにflex justify-centerがあることを確認 */}
-  <h2 className="text-2xl md:text-4xl font-bold text-white mb-6"> {/* whitespace-nowrapは削除 */}
-    あなたの未来を占ってみませんか？
-  </h2>
-</div>
-        </div> {/* <-- この閉じタグが抜けていました！ */}
+      <div className="mt-20 pb-20 text-center max-w-2xl mx-auto px-4 sm:px-6 lg:px-8"> {/* max-w-2xlと中央寄せ、左右の余白を追加 */}
+        <div className="flex justify-center"> {/* h2を中央寄せするためのflexコンテナ */}
+          <h2 className="font-bold text-white mb-6
+             text-xl           /* デフォルト（スマホ）のフォントサイズ */
+             sm:text-2xl       /* smブレークポイント以上でのフォントサイズ */
+             md:text-3xl       /* mdブレークポイント以上でのフォントサイズ */
+             lg:text-4xl       /* lgブレークポイント以上でのフォントサイズ */
+             xl:text-5xl       /* xlブレークポイント以上でのフォントサイズ */
+             leading-tight     /* 行の高さを詰めて、2行になりにくくする */
+             ">
+            あなたの未来を占ってみませんか？
+          </h2>
+        </div>
         <p className="text-white text-xl mb-6 mt-6">
           タロットはあくまで今日のエネルギー傾向を示すヒントです。
           <br />
@@ -252,17 +257,17 @@ const TarotShuffleUI = () => {
           「原因の本質」や「今すぐ取るべき具体的な行動」をお伝えしています。
         </p>
         <div className="flex justify-center mt-6"> {/* mt-6 はボタンのクラスからこちらに移動 */}
-  <a
-    href="https://lin.ee/YqR4tbD"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="w-full max-w-md px-10 py-4 rounded-full font-bold text-lg bg-green-500 text-white shadow-lg hover:bg-green-400 transition-all duration-300 text-center"
-    // w-full で親要素の幅いっぱいに広げ、max-w-md で最大幅を制限
-    // text-center を追加して、ボタン内のテキストを中央揃えにする
-  >
-    <span role="img" aria-label="line-icon">▶︎</span> LINEに戻って【個別鑑定書】を依頼する
-  </a>
-</div>
+          <a
+            href="https://lin.ee/YqR4tbD"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full max-w-md px-10 py-4 rounded-full font-bold text-lg bg-green-500 text-white shadow-lg hover:bg-green-400 transition-all duration-300 text-center"
+            // w-full で親要素の幅いっぱいに広げ、max-w-md で最大幅を制限
+            // text-center を追加して、ボタン内のテキストを中央揃えにする
+          >
+            <span role="img" aria-label="line-icon">▶︎</span> LINEに戻って【個別鑑定書】を依頼する
+          </a>
+        </div>
       </div>
 
       <style>{`
