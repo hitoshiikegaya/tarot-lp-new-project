@@ -93,7 +93,7 @@ const TarotShuffleUI = () => {
           { name: "W様", stars: "★★★★★", category: "人生の方向性", text: "自分の中の矛盾を優しく指摘してくださり、気づけなかった視点を得られました。", gender: "女性", age: "40歳", date: "2025年6月" },
           { name: "C様", stars: "★★★★★", category: "恋愛・結婚", text: "何をしても空回りだった原因がわかり、心が軽くなりました。鑑定をお願いして本当に良かったです。", gender: "女性", age: "36歳", date: "2025年6月" },
           { name: "E様", stars: "★★★★★", category: "仕事・キャリア", text: "期待しすぎる自分を手放すヒントをもらい、人間関係が楽になりました。", gender: "女性", age: "41歳", date: "2025年6月" },
-          { name: "G様", stars: "★★★★★", category: "人間関係", text: "親密になれない理由が明確になり、自分を変えるきっかけを得られました。", gender: "男性", age: "33歳", date: "2025年6月" },
+          { name: "G様", stars: "★★★★★", category: "人間関係", text: "親密になれない理由が明確になり、自分を変えるきっかけを得られました。", gender: "女性", age: "33歳", date: "2025年6月" },
           { name: "J様", stars: "★★★★★", category: "金運・財運", text: "気づかなかった本音を見つめ直せたことで、恋愛への向き合い方が変わりそうです。", gender: "女性", age: "26歳", date: "2025年6月" },
           { name: "A様", stars: "★★★★★", category: "人生の方向性", text: "焦る気持ちを静める言葉をいただき、冷静な判断ができるようになりました。", gender: "女性", age: "43歳", date: "2025年6月" },
           { name: "K様", stars: "★★★★★", category: "恋愛・結婚", text: "他人に合わせすぎていた自分に気づけて、自分の軸を取り戻し始めています。", gender: "女性", age: "34歳", date: "2025年6月" },
@@ -169,7 +169,7 @@ const TarotShuffleUI = () => {
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex flex-col items-center justify-center p-8">
       {/* 🔮 今日の運勢を占うセクション */}
       <div className="text-center mt-8 mb-8">
-        <h1 className="text-4xl font-bold text-white mb-4 flex items-center justify-center gap-2">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 flex items-center justify-center gap-1 whitespace-nowrap"> {/* ここを変更 */}
           <Sparkles className="text-yellow-300" />
           今日の運勢を占う
           <Sparkles className="text-yellow-300" />
@@ -203,17 +203,20 @@ const TarotShuffleUI = () => {
 
         {selectedCard && (
           <div className="absolute inset-0 flex flex-col items-center justify-center animate-fade-in-slow">
-            {/* ここから修正 */}
-            <div className="card-display-area bg-gradient-to-br from-purple-700 to-indigo-700 rounded-xl border-4 border-yellow-300 shadow-2xl flex items-center justify-center text-center text-lg font-bold text-yellow-200 transition-opacity duration-1000 opacity-0 animate-fade-in-slow overflow-hidden">
-              {/* 選択されたカードのみ画像を表示 */}
+            {/* 選択されたカードのみ画像を表示 */}
+            <div className="card-display-area flex items-center justify-center text-center text-lg font-bold text-yellow-200 transition-opacity duration-1000 opacity-0 animate-fade-in-slow overflow-hidden">
               <img
                 src={selectedCard.image} // 選択されたカードの画像パス
                 alt={selectedCard.name}
-                className="selected-card-image" // 新しいクラス名に変更
+                className="selected-card-image"
               />
             </div>
-            {/* ここまで修正 */}
-            <p className="text-purple-100 text-base mt-16 max-w-xs animate-fade-in-slow">
+            {/* ここにカード名称を追加 (画像とメッセージの間) */}
+            <p className="text-yellow-300 text-2xl font-bold mt-8 mb-4 animate-fade-in-slow">
+              【{selectedCard.name}】のカード
+            </p>
+            {/* メッセージ */}
+            <p className="text-purple-100 text-base max-w-xs animate-fade-in-slow">
               {fortuneMessage}
             </p>
           </div>
@@ -307,26 +310,16 @@ const TarotShuffleUI = () => {
           animation: fadeInSlow 1.5s ease-out forwards;
         }
 
-        /* --- ここから追加・修正 --- */
         .card-display-area {
-          /* w-40 h-56 (160px x 224px) だった部分を調整 */
-          /* 実際のタロットカードの一般的な縦横比に近いサイズを指定 */
-          /* 例: 幅150px、高さ250px (アスペクト比 1:1.66) */
-          /* お手持ちの画像の実際のサイズに合わせて調整してください */
-          width: 150px; 
-          height: 250px; 
-          /* Tailwindのw-40 h-56 は 160px x 224px (1rem = 16pxなので 16*10=160, 16*14=224) */
-          /* 必要であればこのpx値を調整してください */
+          width: 300px; 
+          height: 500px; 
         }
 
         .selected-card-image {
-          width: 100%; /* 親要素の幅いっぱいに広げる */
-          height: 100%; /* 親要素の高さいっぱいに広げる */
-          object-fit: contain; /* アスペクト比を保ちつつ、親要素の枠内に収める */
-          /* object-fit: cover; だと画像がはみ出して切れてしまう */
-          /* object-fit: fill; だと画像が歪む */
+          width: 100%; 
+          height: 100%; 
+          object-fit: contain; 
         }
-        /* --- ここまで追加・修正 --- */
       `}</style>
     </div>
   );
