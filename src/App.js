@@ -5,18 +5,38 @@ const TarotShuffleUI = () => {
   const [isShuffling, setIsShuffling] = useState(false);
   const [hasShuffled, setHasShuffled] = useState(false);
   const [cards, setCards] = useState([]);
-  const [selectedCard, setSelectedCard] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null); // { name: "カード名", image: "画像パス" } を保持
   const [fortuneMessage, setFortuneMessage] = useState('');
 
   const [customerReviews, setCustomerReviews] = useState([]);
 
-  const tarotCards = [
-    "愚者", "魔術師", "女教皇", "女帝", "皇帝", "教皇",
-    "恋人", "戦車", "力", "隠者", "運命の輪", "正義",
-    "吊られた男", "死神", "節制", "悪魔", "塔", "星",
-    "月", "太陽", "審判", "世界"
+  // 各タロットカードの名前と画像パスをマッピング
+  const tarotCardsData = [
+    { name: "愚者", image: "/images/fool.png" },
+    { name: "魔術師", image: "/images/magician.png" },
+    { name: "女教皇", image: "/images/high_priestess.png" },
+    { name: "女帝", image: "/images/empress.png" },
+    { name: "皇帝", image: "/images/emperor.png" },
+    { name: "教皇", image: "/images/hierophant.png" },
+    { name: "恋人", image: "/images/lovers.png" },
+    { name: "戦車", image: "/images/chariot.png" },
+    { name: "力", image: "/images/strength.png" },
+    { name: "隠者", image: "/images/hermit.png" },
+    { name: "運命の輪", image: "/images/wheel_of_fortune.png" },
+    { name: "正義", image: "/images/justice.png" },
+    { name: "吊られた男", image: "/images/hanged_man.png" },
+    { name: "死神", image: "/images/death.png" },
+    { name: "節制", image: "/images/temperance.png" },
+    { name: "悪魔", image: "/images/devil.png" },
+    { name: "塔", image: "/images/tower.png" },
+    { name: "星", image: "/images/star.png" },
+    { name: "月", image: "/images/moon.png" },
+    { name: "太陽", image: "/images/sun.png" },
+    { name: "審判", image: "/images/judgement.png" },
+    { name: "世界", image: "/images/world.png" }
   ];
 
+  // メッセージ部分はカード名で引けるようにする（変更なし）
   const tarotMessages = {
     "愚者": "今日は新しい冒険に最適な一日。予定にないことにも前向きに挑戦してみましょう。ラッキーアクションは、知らない道を散歩してみること。カジュアルな服装が吉。",
     "魔術師": "創造力と行動力が高まる日。ひらめきをすぐに形にすることで良い結果が得られます。ラッキーアイテムはメモ帳。ネイビー系の服装で集中力アップ。",
@@ -43,16 +63,18 @@ const TarotShuffleUI = () => {
   };
 
   useEffect(() => {
-    const initialCards = Array.from({ length: 22 }, (_, i) => ({
+    // tarotCardsData からカードデータを取得して初期化
+    const initialCards = Array.from({ length: tarotCardsData.length }, (_, i) => ({
       id: i,
-      name: tarotCards[i],
+      name: tarotCardsData[i].name,
+      image: tarotCardsData[i].image, // ここで画像パスも保持
       rotation: Math.random() * 10 - 5,
       scatterX: 0,
       scatterY: 0,
       scale: 1,
     }));
     setCards(initialCards);
-  }, []);
+  }, []); // tarotCardsDataは定数なので依存配列には含めません
 
   useEffect(() => {
     const fixedReviewsData = [
@@ -130,10 +152,10 @@ const TarotShuffleUI = () => {
       })));
     };
     const stage3 = () => {
-      const randomIndex = Math.floor(Math.random() * tarotCards.length);
-      const drawnCard = tarotCards[randomIndex];
-      setSelectedCard(drawnCard);
-      setFortuneMessage(tarotMessages[drawnCard]);
+      const randomIndex = Math.floor(Math.random() * tarotCardsData.length); // tarotCardsDataから選択
+      const drawnCardData = tarotCardsData[randomIndex]; // カードデータ全体を取得
+      setSelectedCard(drawnCardData); // { name: "カード名", image: "画像パス" } のオブジェクトをセット
+      setFortuneMessage(tarotMessages[drawnCardData.name]); // メッセージはnameで取得
       setIsShuffling(false);
       setHasShuffled(true);
     };
@@ -162,7 +184,7 @@ const TarotShuffleUI = () => {
           cards.map((card, index) => (
             <div
               key={card.id}
-              className="absolute w-28 h-40 bg-gradient-to-br from-purple-700 to-indigo-700 border-2 border-yellow-300 rounded-lg shadow-xl transition-all duration-700"
+              className="absolute w-28 h-40 bg-gradient-to-br from-purple-700 to-indigo-700 border-2 border-yellow-300 rounded-lg shadow-xl transition-all duration-700 cursor-pointer"
               style={{
                 left: `calc(50% - 56px + ${card.scatterX}px)`,
                 top: `calc(50% - 80px + ${card.scatterY}px)`,
@@ -171,6 +193,7 @@ const TarotShuffleUI = () => {
               }}
               onClick={shuffleAndDrawCard}
             >
+              {/* シャッフル中のカードは「TAROT」の文字を表示 */}
               <div className="w-full h-full flex items-center justify-center text-yellow-200 font-bold text-sm">
                 TAROT
               </div>
@@ -180,8 +203,13 @@ const TarotShuffleUI = () => {
 
         {selectedCard && (
           <div className="absolute inset-0 flex flex-col items-center justify-center animate-fade-in-slow">
-            <div className="w-40 h-56 bg-gradient-to-br from-purple-700 to-indigo-700 rounded-xl border-4 border-yellow-300 shadow-2xl flex items-center justify-center text-center text-lg font-bold text-yellow-200 transition-opacity duration-1000 opacity-0 animate-fade-in-slow">
-              {selectedCard}
+            <div className="w-40 h-56 bg-gradient-to-br from-purple-700 to-indigo-700 rounded-xl border-4 border-yellow-300 shadow-2xl flex items-center justify-center text-center text-lg font-bold text-yellow-200 transition-opacity duration-1000 opacity-0 animate-fade-in-slow overflow-hidden">
+              {/* 選択されたカードのみ画像を表示 */}
+              <img
+                src={selectedCard.image} // 選択されたカードの画像パス
+                alt={selectedCard.name}
+                className="w-full h-full object-cover" // 画像がカード枠に収まるように
+              />
             </div>
             <p className="text-purple-100 text-base mt-16 max-w-xs animate-fade-in-slow">
               {fortuneMessage}
@@ -203,7 +231,7 @@ const TarotShuffleUI = () => {
           href="https://lin.ee/YqR4tbD" // ここをあなたのLINE公式アカウントのURLに置き換えてください
           target="_blank"
           rel="noopener noreferrer"
-          className="px-10 py-5 rounded-full font-bold text-lg bg-green-500 text-white shadow-lg hover:bg-green-400 transition-all duration-300"
+          className="w-full max-w-md px-10 py-4 rounded-full font-bold text-lg bg-green-500 text-white shadow-lg hover:bg-green-400 transition-all duration-300 text-center"
         >
           <span role="img" aria-label="line-icon">▶︎</span> LINEに戻って【個別鑑定書】を依頼する
         </a>
@@ -237,15 +265,15 @@ const TarotShuffleUI = () => {
       </div>
 
       {/* 誘導メッセージとLINEボタン (重複しますが、あえてもう一度置いてLPのCTAを強化しています) */}
-      <div className="mt-20 pb-20 text-center max-w-2xl mx-auto px-4 sm:px-6 lg:px-8"> {/* max-w-2xlと中央寄せ、左右の余白を追加 */}
-        <div className="flex justify-center"> {/* h2を中央寄せするためのflexコンテナ */}
+      <div className="mt-20 pb-20 text-center max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-center">
           <h2 className="font-bold text-white mb-6 whitespace-nowrap
-             text-xl           /* デフォルト（スマホ）のフォントサイズ */
-             sm:text-2xl       /* smブレークポイント以上でのフォントサイズ */
-             md:text-3xl       /* mdブレークポイント以上でのフォントサイズ */
-             lg:text-4xl       /* lgブレークポイント以上でのフォントサイズ */
-             xl:text-5xl       /* xlブレークポイント以上でのフォントサイズ */
-             leading-tight     /* 行の高さを詰めて、2行になりにくくする */
+             text-xl
+             sm:text-2xl
+             md:text-3xl
+             lg:text-4xl
+             xl:text-5xl
+             leading-tight
              ">
             あなたの未来を占ってみませんか？
           </h2>
@@ -256,14 +284,12 @@ const TarotShuffleUI = () => {
           本当に悩んでいることがある方は、【個別鑑定書】で<br />
           「原因の本質」や「今すぐ取るべき具体的な行動」をお伝えしています。
         </p>
-        <div className="flex justify-center mt-10"> {/* mt-6 はボタンのクラスからこちらに移動 */}
+        <div className="flex justify-center mt-10"> {/* ここがLINEボタンの上のスペースです */}
           <a
             href="https://lin.ee/YqR4tbD"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full max-w-md px-10 py-4 rounded-full font-bold text-lg bg-green-500 text-white shadow-lg hover:bg-green-400 transition-all duration-300 text-center"
-            // w-full で親要素の幅いっぱいに広げ、max-w-md で最大幅を制限
-            // text-center を追加して、ボタン内のテキストを中央揃えにする
           >
             <span role="img" aria-label="line-icon">▶︎</span> LINEに戻って【個別鑑定書】を依頼する
           </a>
